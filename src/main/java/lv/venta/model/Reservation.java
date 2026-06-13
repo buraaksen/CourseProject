@@ -28,10 +28,10 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idRES;
  
-   /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "idU")
     private User user;
- 	*/
+ 	
  
     @ManyToOne
     @JoinColumn(name = "idRO")
@@ -56,14 +56,14 @@ public class Reservation {
         return idRES;
     }
  
-   /* public User getUser() {
+   public User getUser() {
         return user;
     }
  
     public void setUser(User user) {
         this.user = user;
     }
- */
+ 
     public Room getRoom() {
         return room;
     }
@@ -106,7 +106,7 @@ public class Reservation {
  
     public Reservation() {}
  
-   /* public Reservation(User user, Room room, LocalDate startDate, LocalDate endDate, float totalPrice, ReservationStatus status) {
+   public Reservation(User user, Room room, LocalDate startDate, LocalDate endDate, float totalPrice, ReservationStatus status) {
         setUser(user);
         setRoom(room);
         setStartDate(startDate);
@@ -119,5 +119,5 @@ public class Reservation {
     public String toString() {
         return idRES + " User: [" + user + "] Room: [" + room + "] Start: " + startDate + " End: " + endDate + " Price: " + totalPrice + " Status: " + status;
     }
-    */
+    
 }
