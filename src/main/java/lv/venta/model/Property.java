@@ -1,6 +1,8 @@
 package lv.venta.model;
 
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -60,8 +62,8 @@ public class Property {
 	
 
 	@OneToMany
-	@JoinColumn(name = "idProp")
-	private Property property;
+	@JoinColumn(name = "idRoom")
+	private Collection<Room> rooms;
 	
 	
 	//setter and getter
