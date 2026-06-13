@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -38,7 +40,12 @@ public class Room {
 	 @NotEmpty
 	 @Pattern(regexp = "[1-1000]+", 
 	 		message = " Price per night should be between 1 and 1000")
+	 
 	 private float pricePerNight;
+	 
+	 @OneToMany
+	 @JoinColumn(name = "idRes")
+	 private Reservation reservations;
 	 
 	 //setter and getter
 	 public String getRoom_number() {
