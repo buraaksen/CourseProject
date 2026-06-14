@@ -15,7 +15,21 @@ public class PaymentFilterServiceImpl implements IPaymentFilterService {
 
 	@Autowired
 	private IPaymentRepo paymentRepo;
+	
+	@Override
+	public ArrayList<Payment> filterByReservationId(int reservationId) throws Exception {
+		if (reservationId <= 0) {
+			throw new Exception("Wrong input param: Reservation ID must be positive");
+		}
+		ArrayList<Payment> result = paymentRepo.findByReservation_IdRES(reservationId);
 
+		if (result.isEmpty()) {
+			throw new Exception("There are no payments for reservation ID " + reservationId);
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public ArrayList<Payment> filterBySuccessStatus(boolean isSuccessful) throws Exception {
 		ArrayList<Payment> result = paymentRepo.findBySuccessStatus(isSuccessful);
