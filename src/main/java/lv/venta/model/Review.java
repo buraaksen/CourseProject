@@ -28,7 +28,7 @@ public class Review {
     private int idREV;
  
    
-    //private User user;
+    private User user;
 
     private Property property;
  
@@ -46,13 +46,13 @@ public class Review {
         return idREV;
     }
  
-    //public User getUser() {
-     //   return user;
-   // }
+    public User getUser() {
+        return user;
+   }
  
-    //public void setUser(User user) {
-    //    this.user = user;
-    //}
+    public void setUser(User user) {
+        this.user = user;
+    }
  
     public Property getProperty() {
         return property;
@@ -80,7 +80,7 @@ public class Review {
  
     public Review() {}
  
-   /* public Review(User user, Property property, int ratingScore, String comment) {
+   public Review(User user, Property property, int ratingScore, String comment) {
         setUser(user);
         setProperty(property);
         setRatingScore(ratingScore);
@@ -90,5 +90,5 @@ public class Review {
     @Override
     public String toString() {
         return idREV + " User: [" + user + "] Property: [" + property + "] Rating: " + ratingScore + " Comment: " + comment;
-    }*/
+    }
 } 
