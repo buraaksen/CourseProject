@@ -6,14 +6,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Property")
+@Table(name = "Room")
 public class Room {
 	
 	//variable
@@ -21,26 +24,22 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	 private int RoId; 
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "prId")
 	 private Property PrId;
 	 
 	 @NotNull
 	 @NotEmpty
-	 @Pattern(regexp = "[1-100]+",
+	 @Pattern(regexp = "^[1-9][0-9]?|100$",
 	        message = " Room number should be between 1 and 100")
 	 private String room_number;
 	 
-	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-10]+", 
-	 		message = " Room capacity should be between 1 and 10")
+	@Min(1)
+	@Max(10)
 	 private int capacity;
 	 
-	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-1000]+", 
-	 		message = " Price per night should be between 1 and 1000")
-	 
+	@Min(1)
+	@Max(1000)
 	 private float pricePerNight;
 	 
 	 @OneToMany
@@ -48,6 +47,21 @@ public class Room {
 	 private Reservation reservations;
 	 
 	 //setter and getter
+		public Property getPrId() {
+			return PrId;
+		}
+
+		public void setPrId(Property prId) {
+			PrId = prId;
+		}
+
+		public int getRoId() {
+			return RoId;
+		}
+
+		public void setRoId(int roId) {
+			RoId = roId;
+		}
 	 public String getRoom_number() {
 		 return room_number;
 	 }
