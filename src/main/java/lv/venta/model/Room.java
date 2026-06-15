@@ -32,7 +32,7 @@ public class Room {
 	 
 	 @NotNull
 	 @NotEmpty
-	 @Pattern(regexp = "[1-100]+",
+	 @Pattern(regexp = "^[1-9][0-9]?|100$",
 	        message = " Room number should be between 1 and 100")
 	 private String room_number;
 	 
@@ -41,17 +41,29 @@ public class Room {
 	 @Max(value = 10, message = "Room capacity should be at most 10")
 	 private int capacity;
 	 
-	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-1000]+", 
-	 		message = " Price per night should be between 1 and 1000")
-	 
+	@Min(1)
+	@Max(1000)
 	 private float pricePerNight;
 	 
 	 @OneToMany(mappedBy = "rooms")
 	 private Collection<Reservation> reservations;
 	 
 	 //setter and getter
+		public Property getPrId() {
+			return PrId;
+		}
+
+		public void setPrId(Property prId) {
+			PrId = prId;
+		}
+
+		public int getRoId() {
+			return RoId;
+		}
+
+		public void setRoId(int roId) {
+			RoId = roId;
+		}
 	 public String getRoom_number() {
 		 return room_number;
 	 }
