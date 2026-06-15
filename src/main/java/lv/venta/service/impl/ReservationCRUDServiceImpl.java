@@ -1,4 +1,4 @@
-/* package lv.venta.service.impl;
+ package lv.venta.service.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import lv.venta.model.ReservationStatus;
 import lv.venta.model.Room;
 import lv.venta.model.User;
 import lv.venta.repo.IReservationRepo;
-//import lv.venta.repo.IRoomRepo;
-//import lv.venta.repo.IUserRepo;
+import lv.venta.repo.IRoomRepo;
+import lv.venta.repo.IUserRepo;
 import lv.venta.service.IReservationCRUDService;
 
 @Service
@@ -34,7 +34,7 @@ public class ReservationCRUDServiceImpl implements IReservationCRUDService {
 			throw new Exception("Input data is incorrect");
 		}
 
-	if (!userRepo.existsById(userId)) {
+		if (!roomRepo.existsById(roomId)) {
 			throw new Exception("User with id " + userId + " doesn't exist");
 		}
 
@@ -112,4 +112,3 @@ public class ReservationCRUDServiceImpl implements IReservationCRUDService {
 	}
 }
 
-*/	

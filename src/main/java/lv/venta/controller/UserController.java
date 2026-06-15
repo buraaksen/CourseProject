@@ -17,11 +17,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-
-    // ---------------------------------------------------------------
-    // CREATE
     // localhost:8080/user/register
-    // ---------------------------------------------------------------
     @PostMapping("/register")
     public String postControllerRegisterUser(
             @ModelAttribute User user,
@@ -36,12 +32,16 @@ public class UserController {
             return "error-page";
         }
     }
+    
+    @GetMapping("/register")
+    public String getControllerRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "add-user-page";
+    }
+    
 
 
-    // ---------------------------------------------------------------
-    // READ - Get user by ID
     // localhost:8080/user/profile/3
-    // ---------------------------------------------------------------
     @GetMapping("/profile/{id}")
     public String getControllerUserById(
             @PathVariable(name = "id") int id,
@@ -58,10 +58,8 @@ public class UserController {
     }
 
 
-    // ---------------------------------------------------------------
-    // READ - Get all users (admin panel)
+
     // localhost:8080/user/all
-    // ---------------------------------------------------------------
     @GetMapping("/all")
     public String getControllerAllUsers(Model model) {
         try {
@@ -76,10 +74,8 @@ public class UserController {
     }
 
 
-    // ---------------------------------------------------------------
-    // READ - Get users by role
+
     // localhost:8080/user/role/CUSTOMER
-    // ---------------------------------------------------------------
     @GetMapping("/role/{role}")
     public String getControllerUsersByRole(
             @PathVariable(name = "role") Status role,
@@ -96,10 +92,7 @@ public class UserController {
     }
 
 
-    // ---------------------------------------------------------------
-    // READ - Get user by email
     // localhost:8080/user/email/john@example.com
-    // ---------------------------------------------------------------
     @GetMapping("/email/{email}")
     public String getControllerUserByEmail(
             @PathVariable(name = "email") String email,
@@ -116,10 +109,7 @@ public class UserController {
     }
 
 
-    // ---------------------------------------------------------------
-    // UPDATE
     // localhost:8080/user/update/3
-    // ---------------------------------------------------------------
     @PostMapping("/update/{id}")
     public String postControllerUpdateUser(
             @PathVariable(name = "id") int id,
@@ -140,10 +130,8 @@ public class UserController {
     }
 
 
-    // ---------------------------------------------------------------
-    // DELETE
+
     // localhost:8080/user/delete/3
-    // ---------------------------------------------------------------
     @GetMapping("/delete/{id}")
     public String getControllerDeleteUser(
             @PathVariable(name = "id") int id,

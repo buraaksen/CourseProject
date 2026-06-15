@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Please add reservation data:</h1>
+
+<form method="post" th:object="${reservation}" th:action="@{/reservation/crud/add}">
+
+<table>
+<tr>
+<td> Start Date </td>
+<td> <input type="date" th:field="*{startDate}" />      </td>
+<td th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" > </td>
+</tr>
+
+<tr>
+<td> End Date </td>
+<td> <input type="date" th:field="*{endDate}" />      </td>
+<td th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" > </td>
+</tr>
+
+<tr>
+<td> User ID </td>
+<td> <input type="number" name="userId" />      </td>
+</tr>
+
+<tr>
+<td> Room ID </td>
+<td> <input type="number" name="roomId" />      </td>
+</tr>
+
+</table>
+
+<input type="submit" />
+
+</form>
+
+</body>
+
+</html>

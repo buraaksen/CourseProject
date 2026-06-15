@@ -51,7 +51,7 @@ public class Reservation {
     private User users;
  	
     @ManyToOne
-    @JoinColumn(name = "idROom")
+    @JoinColumn(name = "idRoom")
     private Room rooms;
     
     @OneToOne

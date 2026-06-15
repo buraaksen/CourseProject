@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>All users:</h1>
+
+<table border="1">
+<tr>
+<td>ID</td>
+<td>NAME</td>
+<td>SURNAME</td>
+<td>EMAIL</td>
+<td>ROLE</td>
+</tr>
+
+<tr th:each="tempU : ${box}" >
+    <td th:text="${tempU.id}" > </td>
+    <td th:text="${tempU.name}" > </td>
+    <td th:text="${tempU.surname}" > </td>
+    <td th:text="${tempU.email}" > </td>
+    <td th:text="${tempU.role}" > </td>
+</tr>
+
+</table>
+
+</body>
+
+</html>

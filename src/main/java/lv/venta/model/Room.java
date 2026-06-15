@@ -1,5 +1,7 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Room")
+@Table(name = "RoomTable")
 public class Room {
 	
 	//variable
@@ -25,8 +27,8 @@ public class Room {
 	 private int RoId; 
 	
 	@ManyToOne
-	@JoinColumn(name = "prId")
-	 private Property PrId;
+	@JoinColumn(name = "PrId")
+	private Property PrId;
 	 
 	 @NotNull
 	 @NotEmpty
@@ -34,17 +36,17 @@ public class Room {
 	        message = " Room number should be between 1 and 100")
 	 private String room_number;
 	 
-	@Min(1)
-	@Max(10)
+	 @NotNull
+	 @Min(value = 1, message = "Room capacity should be at least 1")
+	 @Max(value = 10, message = "Room capacity should be at most 10")
 	 private int capacity;
 	 
 	@Min(1)
 	@Max(1000)
 	 private float pricePerNight;
 	 
-	 @OneToMany
-	 @JoinColumn(name = "idRes")
-	 private Reservation reservations;
+	 @OneToMany(mappedBy = "rooms")
+	 private Collection<Reservation> reservations;
 	 
 	 //setter and getter
 		public Property getPrId() {

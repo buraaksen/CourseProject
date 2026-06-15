@@ -17,7 +17,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "User_table")
+@Table(name = "UserTable")
 public class User {
 	@Column(name = "IDU")
 	@Id
@@ -52,9 +52,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Status role;
 	
-	@OneToMany(mappedBy = "Reservation")
+	@OneToMany(mappedBy = "users")
 	private Collection<Reservation> reservations;
-	
 //Getters and Setters
 
 	public String getName() {

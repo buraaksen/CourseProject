@@ -1,6 +1,7 @@
 package lv.venta.model;
 
 import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,28 +10,33 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 @Entity
-@Table(name = "Payment_table")
+@Table(name = "PaymentTable")
 public class Payment {
+	
 	@Column(name = "IDU")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idPay; 
+	
 	@Column(name = "Amount")
 	@DecimalMin(value = "1.00")
 	@DecimalMax(value = "9999999.99")
 	private float amount;
+	
 	@Column(name = "PaymentMethod")
 	@Enumerated(EnumType.STRING)
 	private PaymentMethod payment;
-	@Column(name = "PaymentSatuts")
-	@AssertTrue
+	
+	@Column(name = "PaymentStatus")
 	boolean isSuccesfull;
+	
 	@OneToOne()
 	private Reservation reservation;
+	
+	
 //Getters and Setters
 
 	public float getAmount() {
@@ -53,6 +59,13 @@ public class Payment {
 	}
 	public int getIdPay() {
 		return idPay;
+	}
+	
+	public Reservation getReservation() {
+	    return reservation;
+	}
+	public void setReservation(Reservation reservation) {
+	    this.reservation = reservation;
 	}
 // Contructors
 	public Payment() {}
