@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Please update payment data:</h1>
+
+<form method="post" th:object="${payment}"
+th:action="@{/payment/crud/update/__${payment.idPay}__}">
+
+<table>
+<tr>
+<td> Is Successful </td>
+<td>
+    <select name="isSuccessful">
+        <option value="true">true</option>
+        <option value="false">false</option>
+    </select>
+</td>
+</tr>
+
+</table>
+
+<input type="submit" />
+
+</form>
+
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import java.util.Collection;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ import jakarta.validation.constraints.Pattern;
 
 
 @Entity
-@Table(name = "Property")
+@Table(name = "PropertyTable")
 public class Property {
 	
 	
@@ -56,15 +57,11 @@ public class Property {
 	@NotNull
 	private boolean isAvailable;
 	
-	@Enumerated
-	@Column(name = "Type")
+	@Enumerated(EnumType.STRING)
 	private Type type;
-	
 
-	@OneToMany
-	@JoinColumn(name = "idRoom")
+	@OneToMany(mappedBy = "PrId")
 	private Collection<Room> rooms;
-	
 	
 	//setter and getter
 	public String getName() {

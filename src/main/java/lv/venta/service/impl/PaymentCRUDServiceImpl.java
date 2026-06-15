@@ -1,4 +1,6 @@
-/* package lv.venta.service.impl;
+package lv.venta.service.impl;
+
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,8 +57,11 @@ public class PaymentCRUDServiceImpl implements IPaymentCRUDService {
 		if (reservationId <= 0) {
 			throw new Exception("Id should be positive");
 		}
-		return paymentRepo.findByReservation_IdRES(reservationId)
-				.orElseThrow(() -> new Exception("Reservation with id " + reservationId + " has no payment yet"));
+		ArrayList<Payment> result = paymentRepo.findByReservation_IdRES(reservationId);
+		if (result == null || result.isEmpty()) {
+		    throw new Exception("Reservation with id " + reservationId + " has no payment yet");
+		}
+		return result.get(0);
 	}
 
 	@Override
@@ -73,4 +78,3 @@ public class PaymentCRUDServiceImpl implements IPaymentCRUDService {
 	}
 }
 
-*/

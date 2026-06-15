@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Property")
+@Table(name = "FacilityTable")
 public class Facility {
 	
 	//variable
@@ -19,7 +19,7 @@ public class Facility {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "FaId")
-	private int FaId;; 
+	private int FaId;
 	
 	@NotNull
 	@NotEmpty

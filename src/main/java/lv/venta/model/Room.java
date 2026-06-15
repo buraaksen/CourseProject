@@ -1,19 +1,24 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Property")
+@Table(name = "RoomTable")
 public class Room {
 	
 	//variable
@@ -21,8 +26,9 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	 private int RoId; 
 	
-	
-	 private Property PrId;
+	@ManyToOne
+	@JoinColumn(name = "PrId")
+	private Property PrId;
 	 
 	 @NotNull
 	 @NotEmpty
@@ -31,9 +37,8 @@ public class Room {
 	 private String room_number;
 	 
 	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-10]+", 
-	 		message = " Room capacity should be between 1 and 10")
+	 @Min(value = 1, message = "Room capacity should be at least 1")
+	 @Max(value = 10, message = "Room capacity should be at most 10")
 	 private int capacity;
 	 
 	 @NotNull
@@ -43,9 +48,8 @@ public class Room {
 	 
 	 private float pricePerNight;
 	 
-	 @OneToMany
-	 @JoinColumn(name = "idRes")
-	 private Reservation reservations;
+	 @OneToMany(mappedBy = "rooms")
+	 private Collection<Reservation> reservations;
 	 
 	 //setter and getter
 	 public String getRoom_number() {
