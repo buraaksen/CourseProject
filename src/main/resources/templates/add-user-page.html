@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register User</title>
+</head>
+<body>
+    <h1>Register New User:</h1>
+
+    <form method="post" th:object="${user}" th:action="@{/user/register}">
+        <table>
+            <tr>
+                <td> Name </td>
+                <td> <input type="text" th:field="*{name}" /> </td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Surname </td>
+                <td> <input type="text" th:field="*{surname}" /> </td>
+                <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Email </td>
+                <td> <input type="email" th:field="*{email}" /> </td>
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Password </td>
+                <td> <input type="password" th:field="*{password}" placeholder="e.g. 12345678" /> </td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Role </td>
+                <td>
+                    <select th:field="*{role}">
+                        <option value="client">Client</option>
+                        <option value="landLord">Landlord</option>
+                        <option value="other">Other</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        
+        <input type="submit" value="Register" />
+    </form>
+</body>
+</html>

@@ -67,7 +67,7 @@ public class PaymentCRUDServiceImpl implements IPaymentCRUDService {
 	@Override
 	public void updatePaymentStatus(int id, boolean isSuccessful) throws Exception {
 		Payment paymentFromDB = retrievePaymentById(id);
-		paymentFromDB.setSuccesfull(isSuccessful);
+		paymentFromDB.setSuccessfull(isSuccessful);
 		paymentRepo.save(paymentFromDB);
 	}
 

@@ -1,10 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <title>Error</title>
+</head>
 <body>
-
-<h1> Error: </h1>
-<p th:text="${box}" >  </p>
-
+    <h1 style="color: red;">An Error Occurred!</h1>
+    
+    <h3 th:text="${box}">Error details will appear here</h3>
+    
+    <br>
+    <a href="/property/crud/add">Go to Add Property</a> | 
+    <a href="/user/register">Go to Register User</a>
 </body>
-
 </html>
