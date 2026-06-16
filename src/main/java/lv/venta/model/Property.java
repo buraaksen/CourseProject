@@ -87,7 +87,7 @@ public class Property {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isAvailable() {
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
 	public void setIsAvailable(boolean isAvailable) {
