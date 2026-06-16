@@ -86,7 +86,7 @@ public class PaymentCRUDController {
 		} else {
 			try {
 				paymentService.createPayment(reservationId, payment.getAmount(),
-						payment.getPayment(), payment.isSuccesfull());
+						payment.getPayment(), payment.isSuccessfull());
 
 				return "redirect:/reservation/crud/all";
 			} catch (Exception e) {

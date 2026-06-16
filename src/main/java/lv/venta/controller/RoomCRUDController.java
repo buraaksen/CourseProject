@@ -97,7 +97,7 @@ public class RoomCRUDController {
 
             roomService.create(
                     room.getPrId(),
-                    room.getRoom_number(),
+                    room.getRoomNumber(),
                     room.getCapacity(),
                     room.getPricePerNight());
 
@@ -147,7 +147,7 @@ public class RoomCRUDController {
             roomService.updateRoomById(
                     id,
                     room.getPrId(),
-                    room.getRoom_number(),
+                    room.getRoomNumber(),
                     room.getCapacity(),
                     room.getPricePerNight());
 

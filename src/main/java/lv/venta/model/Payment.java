@@ -31,7 +31,7 @@ public class Payment {
 	private PaymentMethod payment;
 	
 	@Column(name = "PaymentStatus")
-	boolean isSuccesfull;
+	boolean isSuccessfull;
 	
 	@OneToOne()
 	private Reservation reservation;
@@ -51,11 +51,11 @@ public class Payment {
 	public void setPayment(PaymentMethod payment) {
 		this.payment = payment;
 	}
-	public boolean isSuccesfull() {
-		return isSuccesfull;
+	public boolean isSuccessfull() {
+		return isSuccessfull;
 	}
-	public void setSuccesfull(boolean isSuccesfull) {
-		this.isSuccesfull = isSuccesfull;
+	public void setSuccessfull(boolean isSuccessfull) {
+		this.isSuccessfull = isSuccessfull;
 	}
 	public int getIdPay() {
 		return idPay;
@@ -72,10 +72,10 @@ public class Payment {
 	public Payment(float amount, PaymentMethod payment, boolean isSuccesfull) {
 		setAmount(amount);
 		setPayment(payment);
-		setSuccesfull(isSuccesfull);
+		setSuccessfull(isSuccesfull);
 	} 
 //toString
 	public String toString() {
-		return "["+ idPay + "] "+ amount + "€ " + "by "+ payment + "Status: "+ isSuccesfull;
+		return "["+ idPay + "] "+ amount + "€ " + "by "+ payment + "Status: "+ isSuccessfull;
 	}
 }

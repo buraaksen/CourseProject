@@ -68,7 +68,7 @@ public class RoomCRUDService implements IRoomCRUDService {
 		}
 		
 		Room room = roomRepo.findById(id).get();
-		room.setRoom_number(room_number);
+		room.setRoomNumber(room_number);
 		room.setCapacity(capacity);
 		room.setPricePerNight(pricePerNight);
 		roomRepo.save(room);

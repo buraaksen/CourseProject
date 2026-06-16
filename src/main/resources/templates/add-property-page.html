@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Property</title>
+</head>
+<body>
+    <h1>Please add property data:</h1>
+
+    <form method="post" th:object="${property}" th:action="@{/property/crud/add}">
+        <table>
+            <tr>
+                <td> Name </td>
+                <td> <input type="text" th:field="*{name}" /> </td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Location </td>
+                <td> <input type="text" th:field="*{location}" /> </td>
+                <td th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Description </td>
+                <td> <input type="text" th:field="*{description}" /> </td>
+                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color:red;"> </td>
+            </tr>
+
+            <tr>
+                <td> Available </td>
+                <td> <input type="checkbox" th:field="*{isAvailable}" /> </td>
+            </tr>
+
+            <tr>
+                <td> Type </td>
+                <td>
+                    <select th:field="*{type}">
+                        <option value="Hotel">Hotel</option>
+                        <option value="House">House</option>
+                        <option value="Hostel">Hostel</option>
+                    </select>
+                </td>
+                <td th:if="${#fields.hasErrors('type')}" th:errors="*{type}" style="color:red;"> </td>
+            </tr>
+        </table>
+        
+        <input type="submit" value="Add Property" />
+    </form>
+</body>
+</html>

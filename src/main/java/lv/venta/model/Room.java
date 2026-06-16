@@ -34,7 +34,7 @@ public class Room {
 	 @NotEmpty
 	 @Pattern(regexp = "^[1-9][0-9]?|100$",
 	        message = " Room number should be between 1 and 100")
-	 private String room_number;
+	 private String roomNumber;
 	 
 	 @NotNull
 	 @Min(value = 1, message = "Room capacity should be at least 1")
@@ -64,11 +64,11 @@ public class Room {
 		public void setRoId(int roId) {
 			RoId = roId;
 		}
-	 public String getRoom_number() {
-		 return room_number;
+	 public String getRoomNumber() {
+		 return roomNumber;
 	 }
-	 public void setRoom_number(String room_number) {
-		 this.room_number = room_number;
+	 public void setRoomNumber(String roomNumber) {
+		 this.roomNumber = roomNumber;
 	 }
 	 public int getCapacity() {
 		 return capacity;
@@ -86,7 +86,7 @@ public class Room {
 	 //constructor
 		public Room(Property PrId, String room_number, int capacity, float pricePerNight) {
 			this.PrId = PrId;
-			this.room_number = room_number;
+			this.roomNumber = room_number;
 			this.capacity = capacity;
 			this.pricePerNight = pricePerNight;
 		}
@@ -99,7 +99,7 @@ public class Room {
 		//toString method
 		@Override
 		public String toString() {
-			return "Room [room_number=" + room_number + ", capacity=" + capacity + ", pricePerNight=" + pricePerNight
+			return "Room [room_number=" + roomNumber + ", capacity=" + capacity + ", pricePerNight=" + pricePerNight
 					+ "]";
 		}
 	 
