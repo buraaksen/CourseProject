@@ -37,11 +37,6 @@ public class ReservationCRUDServiceImpl implements IReservationCRUDService {
 		if (!roomRepo.existsById(roomId)) {
 			throw new Exception("User with id " + userId + " doesn't exist");
 		}
-
-		if (!roomRepo.existsById(roomId)) {
-			throw new Exception("Room with id " + roomId + " doesn't exist");
-		}
-
 		User user = userRepo.findById(userId).get();
 		Room room = roomRepo.findById(roomId).get();
 
