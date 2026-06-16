@@ -12,7 +12,7 @@ public interface IPaymentRepo extends CrudRepository<Payment, Integer> {
 	
 	ArrayList<Payment> findByReservation_IdRES(int reservationId);
 
-	ArrayList<Payment> findBySuccessfull( boolean isSuccessful);
+	ArrayList<Payment> findBySuccessfull( boolean isSuccessfull);
 
 	ArrayList<Payment> findByPayment(PaymentMethod method);
 
