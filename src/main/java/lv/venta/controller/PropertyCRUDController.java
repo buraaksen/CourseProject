@@ -102,7 +102,7 @@ public class PropertyCRUDController {
                     property.getLocation(),
                     property.getType(),
                     property.getDescription(),
-                    property.isAvailable());
+                    property.getIsAvailable());
 
             return "redirect:/property/crud/all";
 
@@ -152,7 +152,7 @@ public class PropertyCRUDController {
                     property.getLocation(),
                     property.getType(),
                     property.getDescription(),
-                    property.isAvailable());
+                    property.getIsAvailable());
 
             return "redirect:/property/crud/all";
 

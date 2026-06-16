@@ -51,7 +51,7 @@ public class Payment {
 	public void setPayment(PaymentMethod payment) {
 		this.payment = payment;
 	}
-	public boolean isSuccessfull() {
+	public boolean getIsSuccessfull() {
 		return isSuccessfull;
 	}
 	public void setSuccessfull(boolean isSuccessfull) {
