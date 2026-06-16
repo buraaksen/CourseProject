@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import lv.venta.model.Room;
 
@@ -18,7 +19,8 @@ public interface IRoomRepo extends CrudRepository<Room, Integer> {
 		       "(res.startDate < :endDate AND res.endDate > :startDate))")
 	ArrayList<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate);
 
-	ArrayList<Room> findByPrId_PrId(int propertyId);
+	@Query("SELECT r FROM Room r WHERE r.PrId.PrId = :propertyId")
+	ArrayList<Room> findByPrId_PrId(@Param("propertyId") int propertyId);
 
 	ArrayList<Room> findByCapacityGreaterThanEqual(int capacity);
 
