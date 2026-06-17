@@ -29,7 +29,7 @@ public class UserCRUDController {
             return "error-page";
         }
     }
-
+    
     @GetMapping("/profile/{id}") // localhost:8080/user/profile/3 
     public String getUserById(@PathVariable(name = "id") int id, Model model) {
         try {
@@ -63,7 +63,7 @@ public class UserCRUDController {
         }
     }
 
-    @GetMapping("/remove/{id}") // localhost:8080/user/remove/3
+    @GetMapping("/remove/{id}") // localhost:8080/user/remove/
     public String removeUserById(@PathVariable(name = "id") int id, Model model) {
         try {
             userService.deleteUserById(id);
@@ -75,12 +75,12 @@ public class UserCRUDController {
     }
 
     @GetMapping("/add")
-    public String addUser() {
+    public String showInsertPage() {
         return "add-user-page";
     }
 
     @PostMapping("/add")
-    public String addUser(@RequestParam String name,
+    public String insertUser(@RequestParam String name,
             @RequestParam String surname,
             @RequestParam String email,
             @RequestParam String password,
@@ -96,7 +96,7 @@ public class UserCRUDController {
     }
 
     @GetMapping("/update/{id}") // localhost:8080/user/update/3
-    public String updateUser(@PathVariable(name = "id") int id, Model model) {
+    public String showUpdatePage(@PathVariable(name = "id") int id, Model model) {
         try {
             model.addAttribute("box", userService.retrieveUserById(id));
             return "update-user-page";
