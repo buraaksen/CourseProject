@@ -34,8 +34,11 @@ public class ReservationCRUDServiceImpl implements IReservationCRUDService {
 			throw new Exception("Input data is incorrect");
 		}
 
+		if (!userRepo.existsById(userId)) {
+		    throw new Exception("User with id " + userId + " doesn't exist");
+		}
 		if (!roomRepo.existsById(roomId)) {
-			throw new Exception("User with id " + userId + " doesn't exist");
+		    throw new Exception("Room with id " + roomId + " doesn't exist");
 		}
 		User user = userRepo.findById(userId).get();
 		Room room = roomRepo.findById(roomId).get();

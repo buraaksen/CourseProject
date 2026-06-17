@@ -24,10 +24,10 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 public class Reservation {
  
-    @Column(name = "idRES")
+    @Column(name = "idRA")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idRES;
+    private int idRA;
  
     
  
@@ -60,7 +60,7 @@ public class Reservation {
     
  
     public int getIdRES() {
-        return idRES;
+        return idRA;
     }
  
    public User getUser() {
@@ -124,7 +124,7 @@ public class Reservation {
  
     @Override
     public String toString() {
-        return idRES + " User: [" + users + "] Room: [" + rooms + "] Start: " + startDate + " End: " + endDate + " Price: " + totalPrice + " Status: " + status;
+        return idRA + " User: [" + users + "] Room: [" + rooms + "] Start: " + startDate + " End: " + endDate + " Price: " + totalPrice + " Status: " + status;
     }
     
 }

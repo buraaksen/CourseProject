@@ -10,7 +10,7 @@ import lv.venta.model.PaymentMethod;
 
 public interface IPaymentRepo extends CrudRepository<Payment, Integer> {
 	
-	ArrayList<Payment> findByReservation_IdRES(int reservationId);
+	ArrayList<Payment> findByReservation_IdRA(int reservationId);
 
 	ArrayList<Payment> findByIsSuccessfull(boolean isSuccessfull);
 

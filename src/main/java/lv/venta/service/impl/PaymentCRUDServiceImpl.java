@@ -57,7 +57,7 @@ public class PaymentCRUDServiceImpl implements IPaymentCRUDService {
 		if (reservationId <= 0) {
 			throw new Exception("Id should be positive");
 		}
-		ArrayList<Payment> result = paymentRepo.findByReservation_IdRES(reservationId);
+		ArrayList<Payment> result = paymentRepo.findByReservation_IdRA(reservationId);
 		if (result == null || result.isEmpty()) {
 		    throw new Exception("Reservation with id " + reservationId + " has no payment yet");
 		}

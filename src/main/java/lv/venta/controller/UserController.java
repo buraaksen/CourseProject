@@ -6,8 +6,10 @@ import lv.venta.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult; // Added this import
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid; // Added this import
 import java.util.ArrayList;
 
 @Controller
@@ -20,8 +22,16 @@ public class UserController {
     // localhost:8080/user/register
     @PostMapping("/register")
     public String postControllerRegisterUser(
-            @ModelAttribute User user,
-            Model model) {
+            @Valid @ModelAttribute("user") User user, 
+            BindingResult problems,
+            Model model){
+        
+        System.out.println(user);
+     
+        if (problems.hasErrors()) {
+            return "add-user-page"; 
+        }
+        
         try {
             userService.registerUser(user);
             model.addAttribute("box", "User registered successfully.");
@@ -31,6 +41,7 @@ public class UserController {
             model.addAttribute("box", e.getMessage());
             return "error-page";
         }
+      
     }
     
     @GetMapping("/register")
@@ -38,8 +49,6 @@ public class UserController {
         model.addAttribute("user", new User());
         return "add-user-page";
     }
-    
-
 
     // localhost:8080/user/profile/3
     @GetMapping("/profile/{id}")
@@ -48,7 +57,7 @@ public class UserController {
             Model model) {
         try {
             User userFromDB = userService.getUserById(id);
-            model.addAttribute("box", userFromDB);
+            model.addAttribute("user", userFromDB);
             return "user-profile-page";
 
         } catch (Exception e) {
@@ -56,8 +65,6 @@ public class UserController {
             return "error-page";
         }
     }
-
-
 
     // localhost:8080/user/all
     @GetMapping("/all")
@@ -72,8 +79,6 @@ public class UserController {
             return "error-page";
         }
     }
-
-
 
     // localhost:8080/user/role/client
     @GetMapping("/role/{role}")
@@ -91,7 +96,6 @@ public class UserController {
         }
     }
 
-
     // localhost:8080/user/email/john@example.com
     @GetMapping("/email/{email}")
     public String getControllerUserByEmail(
@@ -107,7 +111,6 @@ public class UserController {
             return "error-page";
         }
     }
-
 
     // localhost:8080/user/update/3
     @PostMapping("/update/{id}")
@@ -128,8 +131,6 @@ public class UserController {
             return "error-page";
         }
     }
-
-
 
     // localhost:8080/user/delete/3
     @GetMapping("/delete/{id}")
