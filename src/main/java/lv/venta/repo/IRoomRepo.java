@@ -14,7 +14,7 @@ public interface IRoomRepo extends CrudRepository<Room, Integer> {
 	boolean existsByRoomNumberAndPrId(String roomNumber, Property prId);
 
 	@Query("SELECT r FROM Room r WHERE r.roId NOT IN " +
-		   "(SELECT res.rooms.roId FROM Reservation res WHERE " +
+		   "(SELECT res.room.roId FROM Reservation res WHERE " +
 		   "(res.startDate < :endDate AND res.endDate > :startDate))")
 	ArrayList<Room> findAvailableRooms(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
