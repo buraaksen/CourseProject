@@ -43,7 +43,7 @@ public class RoomFiltering implements IRoomFiltering {
 	@Override
 	public ArrayList<Room> filterByPropertyId(int propertyId) throws Exception {
 		ArrayList<Room> result =
-	            roomRepo.findByPrId_PrId(propertyId);
+	            roomRepo.findByPropertyId(propertyId);
 
 	    if(result.isEmpty())
 	        throw new Exception("No rooms found");

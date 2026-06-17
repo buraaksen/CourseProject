@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Property</title>
+</head>
+<body>
+    <h1>Update Property</h1>
+
+    <form th:action="@{/property/crud/update/{id}(id=${property.prId})}" th:object="${property}" method="post">
+        
+        <input type="hidden" th:field="*{prId}" />
+
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" />
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></p>
+        <br/>
+
+        <label>Location:</label>
+        <input type="text" th:field="*{location}" />
+        <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}" style="color:red;"></p>
+        <br/>
+
+        <label>Description:</label>
+        <input type="text" th:field="*{description}" />
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" style="color:red;"></p>
+        <br/>
+
+        <label>Type:</label>
+        <select th:field="*{type}">
+            <option th:each="typeValue : ${T(lv.venta.model.Type).values()}"
+                    th:value="${typeValue}"
+                    th:text="${typeValue}">
+            </option>
+        </select>
+        <br/><br/>
+
+        <label>Available:</label>
+        <input type="checkbox" th:field="*{isAvailable}" />
+        <br/><br/>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
