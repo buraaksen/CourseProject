@@ -19,27 +19,7 @@ public class RoomFilteringController {
     @Autowired
     private IRoomFiltering roomFiltering;
 
-    // localhost:8080/room/filter/price
-    @GetMapping("/price")
-    public String filterByPriceRange(
-            @RequestParam("min") float min,
-            @RequestParam("max") float max,
-            Model model) {
-
-        try {
-            ArrayList<Room> rooms =
-                    roomFiltering.filterByPriceRange(min, max);
-
-            model.addAttribute("box", rooms);
-            return "all-rooms-page";
-
-        } catch (Exception e) {
-            model.addAttribute("box", e.getMessage());
-            return "error-page";
-        }
-    }
-
-    // localhost:8080/room/filter/capacity/4
+    // localhost:8080/room/filter/capacity/10
     @GetMapping("/capacity/{capacity}")
     public String filterByCapacity(
             @PathVariable("capacity") int capacity,
@@ -67,26 +47,6 @@ public class RoomFilteringController {
         try {
             ArrayList<Room> rooms =
                     roomFiltering.filterByPropertyId(propertyId);
-
-            model.addAttribute("box", rooms);
-            return "all-rooms-page";
-
-        } catch (Exception e) {
-            model.addAttribute("box", e.getMessage());
-            return "error-page";
-        }
-    }
-
-    // localhost:8080/room/filter/available?start=2026-06-01&end=2026-06-10
-    @GetMapping("/available")
-    public String filterByAvailability(
-            @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
-            @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
-            Model model) {
-
-        try {
-            ArrayList<Room> rooms =
-                    roomFiltering.filterByDateAvilability(start, end);
 
             model.addAttribute("box", rooms);
             return "all-rooms-page";

@@ -17,6 +17,7 @@ import lv.venta.service.IRoomCRUDService;
 public class RoomCRUDController {
 
     @Autowired
+    
     private IRoomCRUDService roomService;
 
     // localhost:8080/room/crud/all

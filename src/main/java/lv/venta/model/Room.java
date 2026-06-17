@@ -24,11 +24,11 @@ public class Room {
 	//variable
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	 private int RoId; 
+	 private int roId; 
 	
 	@ManyToOne
-	@JoinColumn(name = "PrId")
-	private Property PrId;
+	@JoinColumn(name = "prId")
+	private Property prId;
 	 
 	 @NotNull
 	 @NotEmpty
@@ -50,19 +50,19 @@ public class Room {
 	 
 	 //setter and getter
 		public Property getPrId() {
-			return PrId;
+			return prId;
 		}
 
 		public void setPrId(Property prId) {
-			PrId = prId;
+			this.prId = prId;
 		}
 
 		public int getRoId() {
-			return RoId;
+			return roId;
 		}
 
 		public void setRoId(int roId) {
-			RoId = roId;
+			this.roId = roId;
 		}
 	 public String getRoomNumber() {
 		 return roomNumber;
@@ -85,7 +85,7 @@ public class Room {
 	 
 	 //constructor
 		public Room(Property PrId, String room_number, int capacity, float pricePerNight) {
-			this.PrId = PrId;
+			this.prId = PrId;
 			this.roomNumber = room_number;
 			this.capacity = capacity;
 			this.pricePerNight = pricePerNight;

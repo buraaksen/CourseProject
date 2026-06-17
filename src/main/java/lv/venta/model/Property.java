@@ -29,7 +29,7 @@ public class Property {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PrId")
-	private int PrId;
+	private int prId;
 	
 	@NotNull
 	@NotEmpty
@@ -58,16 +58,16 @@ public class Property {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 
-	@OneToMany(mappedBy = "PrId")
+	@OneToMany(mappedBy = "prId")
 	private Collection<Room> rooms;
 	
 	//setter and getter
 	public int getPrId() {
-		return PrId;
+		return prId;
 	}
 
 	public void setPrId(int prId) {
-		PrId = prId;
+		this.prId = prId;
 	}
 	public String getName() {
 		return name;	
