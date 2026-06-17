@@ -11,12 +11,11 @@ import lv.venta.model.Room;
 
 public interface IRoomRepo extends CrudRepository<Room, Integer> {
 
-
 	boolean existsByRoomNumberAndCapacityAndPricePerNight(String room_number, int capacity, float pricePerNight);
 
 	@Query("SELECT r FROM Room r WHERE r.RoId NOT IN " +
-		       "(SELECT res.rooms.RoId FROM Reservation res WHERE " +
-		       "(res.startDate < :endDate AND res.endDate > :startDate))")
+	       "(SELECT res.room.RoId FROM Reservation res WHERE " +
+	       "(res.startDate < :endDate AND res.endDate > :startDate))")
 	ArrayList<Room> findAvailableRooms(LocalDate startDate, LocalDate endDate);
 
 	@Query("SELECT r FROM Room r WHERE r.PrId.PrId = :propertyId")
@@ -25,7 +24,5 @@ public interface IRoomRepo extends CrudRepository<Room, Integer> {
 	ArrayList<Room> findByCapacityGreaterThanEqual(int capacity);
 
 	ArrayList<Room> findByPricePerNightBetween(float minPrice, float maxPrice);
-
-
 
 }

@@ -1,5 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
 
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 <h1>All reservations:</h1>
 
@@ -12,20 +12,26 @@
 <td>STATUS</td>
 <td>USER</td>
 <td>ROOM</td>
+<td>UPDATE</td>
+<td>DELETE</td>
 </tr>
 
-<tr th:each="tempR : ${box}" >
-    <td th:text="${tempR.idRA}" > </td>
-    <td th:text="${tempR.startDate}" > </td>
-    <td th:text="${tempR.endDate}" > </td>
-    <td th:text="${tempR.totalPrice}" > </td>
-    <td th:text="${tempR.status}" > </td>
-    <td th:text="${tempR.user}" > </td>
-    <td th:text="${tempR.room}" > </td>
+<tr th:each="tempR : ${box}">
+    <td th:text="${tempR.idRA}"> </td>
+    <td th:text="${tempR.startDate}"> </td>
+    <td th:text="${tempR.endDate}"> </td>
+    <td th:text="${tempR.totalPrice}"> </td>
+    <td th:text="${tempR.status}"> </td>
+    <td th:text="${tempR.user.name} + ' ' + ${tempR.user.surname}"> </td>
+    <td th:text="${tempR.room.roomNumber}"> </td>
+    <td><a th:href="@{/reservation/crud/update/{id}(id=${tempR.idRA})}">Update</a></td>
+    <td><a th:href="@{/reservation/crud/delete/{id}(id=${tempR.idRA})}">Delete</a></td>
 </tr>
 
 </table>
 
-</body>
+<br/>
+<a th:href="@{/reservation/crud/add}">Add New Reservation</a>
 
+</body>
 </html>

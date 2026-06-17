@@ -1,41 +1,39 @@
+
 <html xmlns:th="http://www.thymeleaf.org">
-
 <body>
-<h1>Please add payment data:</h1>
+<h1>Add New Payment</h1>
 
-<form method="post" th:object="${payment}" th:action="@{/payment/crud/add}">
-
+<form method="post" th:action="@{/payment/crud/add}">
 <table>
-<tr>
-<td> Amount </td>
-<td> <input type="text" th:field="*{amount}" />      </td>
-<td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" > </td>
-</tr>
-
-<tr>
-<td> Payment Method </td>
-<td>
-    <select th:field="*{payment}">
-        <option value="cash">cash</option>
-        <option value="card">card</option>
-        <option value="paypal">paypal</option>
-        <option value="other">other</option>
-    </select>
-</td>
-<td th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}" > </td>
-</tr>
-
-<tr>
-<td> Reservation ID </td>
-<td> <input type="number" name="reservationId" />      </td>
-</tr>
-
+    <tr>
+        <td>Amount (€)</td>
+        <td><input type="number" name="amount" step="0.01" min="1" required /></td>
+    </tr>
+    <tr>
+        <td>Payment Method</td>
+        <td>
+            <select name="paymentMethod">
+                <option th:each="m : ${methods}" th:value="${m}" th:text="${m}"></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Successful</td>
+        <td>
+            <select name="successful">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Reservation ID</td>
+        <td><input type="number" name="reservationId" required /></td>
+    </tr>
 </table>
-
-<input type="submit" />
-
+<input type="submit" value="Add Payment" />
 </form>
 
+<br/><a th:href="@{/reservation/crud/all}">Back</a>
 </body>
-
 </html>

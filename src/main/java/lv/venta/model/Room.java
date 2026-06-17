@@ -45,7 +45,7 @@ public class Room {
 	@Max(1000)
 	 private float pricePerNight;
 	 
-	 @OneToMany(mappedBy = "rooms")
+	 @OneToMany(mappedBy = "room")
 	 private Collection<Reservation> reservations;
 	 
 	 //setter and getter

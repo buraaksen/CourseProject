@@ -52,7 +52,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Status role;
 	
-	@OneToMany(mappedBy = "users")
+	@OneToMany(mappedBy = "user")
 	private Collection<Reservation> reservations;
 //Getters and Setters
 
