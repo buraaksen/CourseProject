@@ -44,9 +44,8 @@ public class ReservationCRUDServiceImpl implements IReservationCRUDService {
         User user = userRepo.findById(userId).get();
         Room room = roomRepo.findById(roomId).get();
 
-        // DÜZELTME: Period.getDays() yerine ChronoUnit.DAYS.between kullanılıyor,
-        // aksi halde 1 aydan uzun rezervasyonlarda gece sayısı (ve toplam fiyat) yanlış hesaplanır.
-        long nights = ChronoUnit.DAYS.between(startDate, endDate);
+       
+        long nights = ChronoUnit.DAYS.between(startDate, endDate); //its used because we need the difference between days
         float totalPrice = nights * room.getPricePerNight();
 
         Reservation reservation = new Reservation(user, room, startDate, endDate,
