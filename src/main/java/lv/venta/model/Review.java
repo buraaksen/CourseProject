@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -28,9 +30,14 @@ public class Review {
     private int idREV;
  
    
-    //private User user;
-
+    @ManyToOne
+    @JoinColumn(name = "idU")
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "PrId")
     private Property property;
+
  
     @Min(1)
     @Max(5)
@@ -46,13 +53,13 @@ public class Review {
         return idREV;
     }
  
-    //public User getUser() {
-     //   return user;
-   // }
+    public User getUser() {
+        return user;
+   }
  
-    //public void setUser(User user) {
-    //    this.user = user;
-    //}
+    public void setUser(User user) {
+        this.user = user;
+    }
  
     public Property getProperty() {
         return property;
@@ -80,7 +87,7 @@ public class Review {
  
     public Review() {}
  
-   /* public Review(User user, Property property, int ratingScore, String comment) {
+   public Review(User user, Property property, int ratingScore, String comment) {
         setUser(user);
         setProperty(property);
         setRatingScore(ratingScore);
@@ -90,5 +97,5 @@ public class Review {
     @Override
     public String toString() {
         return idREV + " User: [" + user + "] Property: [" + property + "] Rating: " + ratingScore + " Comment: " + comment;
-    }*/
+    }
 } 

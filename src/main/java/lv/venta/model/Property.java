@@ -1,13 +1,18 @@
 package lv.venta.model;
 
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +20,7 @@ import jakarta.validation.constraints.Pattern;
 
 
 @Entity
-@Table(name = "Property")
+@Table(name = "PropertyTable")
 public class Property {
 	
 	
@@ -48,14 +53,22 @@ public class Property {
 	private String description;
 	
 	@Column(name = "IsAvailable")
-	@NotNull
 	private boolean isAvailable;
 	
-	@Enumerated
-	@Column(name = "Type")
+	@Enumerated(EnumType.STRING)
 	private Type type;
+
+	@OneToMany(mappedBy = "PrId")
+	private Collection<Room> rooms;
 	
 	//setter and getter
+	public int getPrId() {
+		return PrId;
+	}
+
+	public void setPrId(int prId) {
+		PrId = prId;
+	}
 	public String getName() {
 		return name;	
 	}
@@ -74,10 +87,10 @@ public class Property {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isAvailable() {
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
-	public void setAvailable(boolean isAvailable) {
+	public void setIsAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
 	public Type getType() {

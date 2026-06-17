@@ -1,17 +1,24 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "Property")
+@Table(name = "RoomTable")
 public class Room {
 	
 	//variable
@@ -19,33 +26,49 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	 private int RoId; 
 	
-	
-	 private Property PrId;
+	@ManyToOne
+	@JoinColumn(name = "PrId")
+	private Property PrId;
 	 
 	 @NotNull
 	 @NotEmpty
-	 @Pattern(regexp = "[1-100]+",
+	 @Pattern(regexp = "^[1-9][0-9]?|100$",
 	        message = " Room number should be between 1 and 100")
-	 private String room_number;
+	 private String roomNumber;
 	 
 	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-10]+", 
-	 		message = " Room capacity should be between 1 and 10")
+	 @Min(value = 1, message = "Room capacity should be at least 1")
+	 @Max(value = 10, message = "Room capacity should be at most 10")
 	 private int capacity;
 	 
-	 @NotNull
-	 @NotEmpty
-	 @Pattern(regexp = "[1-1000]+", 
-	 		message = " Price per night should be between 1 and 1000")
+	@Min(1)
+	@Max(1000)
 	 private float pricePerNight;
 	 
+	 @OneToMany(mappedBy = "rooms")
+	 private Collection<Reservation> reservations;
+	 
 	 //setter and getter
-	 public String getRoom_number() {
-		 return room_number;
+		public Property getPrId() {
+			return PrId;
+		}
+
+		public void setPrId(Property prId) {
+			PrId = prId;
+		}
+
+		public int getRoId() {
+			return RoId;
+		}
+
+		public void setRoId(int roId) {
+			RoId = roId;
+		}
+	 public String getRoomNumber() {
+		 return roomNumber;
 	 }
-	 public void setRoom_number(String room_number) {
-		 this.room_number = room_number;
+	 public void setRoomNumber(String roomNumber) {
+		 this.roomNumber = roomNumber;
 	 }
 	 public int getCapacity() {
 		 return capacity;
@@ -63,7 +86,7 @@ public class Room {
 	 //constructor
 		public Room(Property PrId, String room_number, int capacity, float pricePerNight) {
 			this.PrId = PrId;
-			this.room_number = room_number;
+			this.roomNumber = room_number;
 			this.capacity = capacity;
 			this.pricePerNight = pricePerNight;
 		}
@@ -76,7 +99,7 @@ public class Room {
 		//toString method
 		@Override
 		public String toString() {
-			return "Room [room_number=" + room_number + ", capacity=" + capacity + ", pricePerNight=" + pricePerNight
+			return "Room [room_number=" + roomNumber + ", capacity=" + capacity + ", pricePerNight=" + pricePerNight
 					+ "]";
 		}
 	 

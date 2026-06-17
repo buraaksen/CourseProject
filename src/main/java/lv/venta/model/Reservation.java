@@ -2,8 +2,6 @@ package lv.venta.model;
 
 import java.time.LocalDate;
 
-
-
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
@@ -14,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -30,14 +29,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idRES;
  
-   /* @ManyToOne
-    @JoinColumn(name = "idU")
-    private User user;
- 	*/
- 
-    @ManyToOne
-    @JoinColumn(name = "idRO")
-    private Room room;
+    
  
     @NotNull
     @Column(name = "StartDate")
@@ -53,25 +45,38 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
     private ReservationStatus status;
+    
+    @ManyToOne
+    @JoinColumn(name = "idU")
+    private User users;
+ 	
+    @ManyToOne
+    @JoinColumn(name = "idRoom")
+    private Room rooms;
+    
+    @OneToOne
+    @JoinColumn(name = "idPay")
+    private Payment payments;
+    
  
     public int getIdRES() {
         return idRES;
     }
  
-   /* public User getUser() {
-        return user;
+   public User getUser() {
+        return users;
     }
  
     public void setUser(User user) {
-        this.user = user;
+        this.users = user;
     }
- */
+ 
     public Room getRoom() {
-        return room;
+        return rooms;
     }
  
     public void setRoom(Room room) {
-        this.room = room;
+        this.rooms = room;
     }
  
     public LocalDate getStartDate() {
@@ -108,7 +113,7 @@ public class Reservation {
  
     public Reservation() {}
  
-   /* public Reservation(User user, Room room, LocalDate startDate, LocalDate endDate, float totalPrice, ReservationStatus status) {
+   public Reservation(User user, Room room, LocalDate startDate, LocalDate endDate, float totalPrice, ReservationStatus status) {
         setUser(user);
         setRoom(room);
         setStartDate(startDate);
@@ -119,7 +124,7 @@ public class Reservation {
  
     @Override
     public String toString() {
-        return idRES + " User: [" + user + "] Room: [" + room + "] Start: " + startDate + " End: " + endDate + " Price: " + totalPrice + " Status: " + status;
+        return idRES + " User: [" + users + "] Room: [" + rooms + "] Start: " + startDate + " End: " + endDate + " Price: " + totalPrice + " Status: " + status;
     }
-    */
+    
 }
