@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Please update reservation data:</h1>
+
+<form method="post" th:object="${reservation}"
+th:action="@{/reservation/crud/update/__${reservation.idRA}__}">
+
+<table>
+<tr>
+<td> Start Date </td>
+<td> <input type="date" th:field="*{startDate}" />      </td>
+</tr>
+
+<tr>
+<td> End Date </td>
+<td> <input type="date" th:field="*{endDate}" />      </td>
+</tr>
+
+<tr>
+<td> Status </td>
+<td>
+    <select name="status">
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Cancelled">Cancelled</option>
+    </select>
+</td>
+</tr>
+
+</table>
+
+<input type="submit" />
+
+</form>
+
+</body>
+
+</html>

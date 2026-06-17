@@ -1,27 +1,38 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
 <body>
-<h1>All users:</h1>
 
-<table border="1">
-<tr>
-<td>ID</td>
-<td>NAME</td>
-<td>SURNAME</td>
-<td>EMAIL</td>
-<td>ROLE</td>
-</tr>
+    <h1>All Users</h1>
 
-<tr th:each="tempU : ${box}" >
-    <td th:text="${tempU.id}" > </td>
-    <td th:text="${tempU.name}" > </td>
-    <td th:text="${tempU.surname}" > </td>
-    <td th:text="${tempU.email}" > </td>
-    <td th:text="${tempU.role}" > </td>
-</tr>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="user : ${box}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.surname}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
+                <a th:href="@{/user/profile/{id}(id=${user.id})}">Profile</a> |
+                <a th:href="@{/user/update/{id}(id=${user.id})}">Update</a> |
+                <a th:href="@{/user/remove/{id}(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
 
-</table>
+    <br>
+    <a th:href="@{/user/add}">Add New User</a>
 
 </body>
-
 </html>

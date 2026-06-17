@@ -1,53 +1,38 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
 <body>
-<h1>Please update user data:</h1>
 
-<form method="post" th:object="${user}" th:action="@{/user/update/__${user.id}__}">
+    <h1>User Profile</h1>
 
-<table>
-<tr>
-<td> Name </td>
-<td> <input type="text" th:field="*{name}"  />      </td>
-<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"  > </td>
-</tr>
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td th:text="${box.id}"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td th:text="${box.name}"></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td th:text="${box.surname}"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td th:text="${box.email}"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${box.role?.name()}"></td>
+        </tr>
+    </table>
 
-<tr>
-<td> Surname </td>
-<td> <input type="text" th:field="*{surname}"  />      </td>
-<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"  > </td>
-</tr>
-
-<tr>
-<td> Email </td>
-<td> <input type="text" th:field="*{email}"  />      </td>
-<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"  > </td>
-</tr>
-
-<tr>
-<td> Password </td>
-<td> <input type="password" th:field="*{password}"  />      </td>
-<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  > </td>
-</tr>
-
-<tr>
-<td> Role </td>
-<td> 
-    <select th:field="*{role}">
-        <option value="client">client</option>
-        <option value="landLord">landLord</option>
-        <option value="other">other</option>
-    </select>      
-</td>
-<td th:if="${#fields.hasErrors('role')}" th:errors="*{role}"  > </td>
-</tr>
-
-</table>
-
-<input type="submit" />
-
-</form>
+    <br>
+    <a th:href="@{/user/all}">Back to Users List</a>
 
 </body>
-
 </html>
