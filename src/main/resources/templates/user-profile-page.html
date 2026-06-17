@@ -1,13 +1,38 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
 <body>
 
-<p th:text="${box.id}" >  </p>
-<p th:text="${box.name}" >  </p>
-<p th:text="${box.surname}" >  </p>
-<p th:text="${box.email}" >  </p>
-<p th:text="${box.role}" >  </p>
+    <h1>User Profile</h1>
+
+    <table border="1">
+        <tr>
+            <td>ID</td>
+            <td th:text="${box.id}"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td th:text="${box.name}"></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td th:text="${box.surname}"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td th:text="${box.email}"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td th:text="${box.role?.name()}"></td>
+        </tr>
+    </table>
+
+    <br>
+    <a th:href="@{/user/all}">Back to Users List</a>
 
 </body>
-
 </html>

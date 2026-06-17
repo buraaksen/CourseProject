@@ -1,12 +1,17 @@
+<!-- src/main/resources/templates/payment-page.html -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <body>
+<h1>Payment Details</h1>
 
-<p th:text="${box.idPay}" >  </p>
-<p th:text="${box.amount}" >  </p>
-<p th:text="${box.payment}" >  </p>
-<p th:text="${box.succesfull}" >  </p>
+<p th:text="'ID: ' + ${box.idPay}"></p>
+<p th:text="'Amount: ' + ${box.amount} + '€'"></p>
+<p th:text="'Method: ' + ${box.paymentMethod}"></p>
+<p th:text="'Successful: ' + ${box.successful}"></p>
+<p th:if="${box.reservation != null}"
+   th:text="'Reservation ID: ' + ${box.reservation.idRA}"></p>
 
+<br/>
+<a th:href="@{/payment/crud/update/{id}(id=${box.idPay})}">Update</a> |
+<a th:href="@{/payment/filter/status/true}">Back to All Payments</a>
 </body>
-
 </html>

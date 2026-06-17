@@ -17,6 +17,7 @@ import lv.venta.service.IRoomCRUDService;
 public class RoomCRUDController {
 
     @Autowired
+    
     private IRoomCRUDService roomService;
 
     // localhost:8080/room/crud/all
@@ -36,7 +37,7 @@ public class RoomCRUDController {
         }
     }
 
-    // localhost:8080/room/crud/all/1
+    // localhost:8080/room/crud/all/3
     @GetMapping("/all/{id}")
     public String getRoomById(
             @PathVariable(name = "id") int id,
@@ -47,7 +48,7 @@ public class RoomCRUDController {
 
             model.addAttribute("box", room);
 
-            return "room-page";
+            return "all-rooms-page";
 
         } catch (Exception e) {
             model.addAttribute("box", e.getMessage());
@@ -55,7 +56,7 @@ public class RoomCRUDController {
         }
     }
 
-    // localhost:8080/room/crud/delete/1
+    // localhost:8080/room/crud/delete/3
     @GetMapping("/delete/{id}")
     public String deleteRoom(
             @PathVariable(name = "id") int id,

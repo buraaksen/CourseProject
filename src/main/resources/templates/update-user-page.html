@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+</head>
+<body>
+
+<h1>Please update user data:</h1>
+
+<form method="post" th:action="@{/user/update/{id}(id=${box.id})}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="name" th:value="${box.name}" required /></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td><input type="text" name="surname" th:value="${box.surname}" required /></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="email" th:value="${box.email}" required /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" th:value="${box.password}" required /></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>
+                <select name="status" required>
+                    <option value="CLIENT" th:selected="${box.role?.name() == 'CLIENT'}">CLIENT</option>
+                    <option value="ADMIN" th:selected="${box.role?.name() == 'ADMIN'}">ADMIN</option>
+                    <option value="OTHER" th:selected="${box.role?.name() == 'OTHER'}">OTHER</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="Update User"/>
+</form>
+
+<br>
+<a th:href="@{/user/all}">Cancel</a>
+
+</body>
+</html>

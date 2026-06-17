@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>All payments:</h1>
+
+<table border="1">
+<tr>
+<td>ID</td>
+<td>AMOUNT</td>
+<td>PAYMENT METHOD</td>
+<td>STATUS</td>
+</tr>
+
+<tr th:each="tempP : ${box}" >
+    <td th:text="${tempP.idPay}" > </td>
+    <td th:text="${tempP.amount}" > </td>
+    <td th:text="${tempP.payment}" > </td>
+    <td th:text="${tempP.successful}" > </td>
+</tr>
+
+</table>
+
+</body>
+
+</html>
