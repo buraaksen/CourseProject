@@ -75,7 +75,7 @@ public class UserController {
 
 
 
-    // localhost:8080/user/role/CUSTOMER
+    // localhost:8080/user/role/client
     @GetMapping("/role/{role}")
     public String getControllerUsersByRole(
             @PathVariable(name = "role") Status role,

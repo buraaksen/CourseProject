@@ -18,17 +18,15 @@ public class UserServiceImpl implements IUserService {
     // CREATE
     @Override
     public void registerUser(User user) throws Exception {
-        if (user == null) {
-            throw new Exception("User data cannot be null");
-        }
-     
-        if (userRepo.findByEmail(user.getEmail()) != null) {
-            throw new Exception("User with this email already exists");
+        User existingUser = userRepo.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            throw new Exception("Bu e-posta adresi zaten kullanımda!");
         }
         userRepo.save(user);
     }
-    
+
     // READ
+ // READ
     @Override
     public User getUserById(int id) throws Exception {
         if (id <= 0) {
@@ -66,18 +64,15 @@ public class UserServiceImpl implements IUserService {
         
         return user;
     }
+    // UPDATE
 
     @Override
     public void updateUser(int id, String name, String surname, String email, String password) throws Exception {
         
-      
         if (!userRepo.existsById(id)) {
             throw new Exception("User not found with id: " + id);
         }
-
-
         User existingUser = userRepo.findById(id).get();
-
 
         existingUser.setName(name);
         existingUser.setSurname(surname);
@@ -86,7 +81,6 @@ public class UserServiceImpl implements IUserService {
 
         userRepo.save(existingUser);
     }
-
     // DELETE
     @Override
     public void deleteUser(int id) {
@@ -95,6 +89,4 @@ public class UserServiceImpl implements IUserService {
         }
         userRepo.deleteById(id);
     }
-
-	
 }
