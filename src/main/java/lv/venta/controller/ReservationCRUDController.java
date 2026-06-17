@@ -47,8 +47,7 @@ public class ReservationCRUDController {
             return "error-page";
         }
     }
-
-    // localhost:8080/reservation/crud/one?id=2
+    
     @GetMapping("/one")
     public String getOneByParam(@RequestParam int id, Model model) {
         try {
@@ -68,7 +67,7 @@ public class ReservationCRUDController {
         return "add-reservation-page";
     }
 
-    // localhost:8080/reservation/crud/add  (POST)
+
     @PostMapping("/add")
     public String submitAdd(
             @RequestParam int userId,

@@ -1,10 +1,8 @@
 package lv.venta.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,7 @@ public class RoomFilteringController {
 
     // localhost:8080/room/filter/capacity/10
     @GetMapping("/capacity/{capacity}")
-    public String filterByCapacity(
+    public String findByCapacityGreaterThanEqual(
             @PathVariable("capacity") int capacity,
             Model model) {
 

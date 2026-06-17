@@ -56,7 +56,7 @@ public class RoomCRUDController {
         }
     }
 
-    //  
+    // localhost:8080/room/crud/delete/3
     @GetMapping("/delete/{id}")
     public String deleteRoom(
             @PathVariable(name = "id") int id,
