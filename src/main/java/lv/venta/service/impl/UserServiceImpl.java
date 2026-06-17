@@ -17,15 +17,29 @@ public class UserServiceImpl implements IUserService {
 
     // CREATE
     @Override
-    public void registerUser(User user) {
+    public void registerUser(User user) throws Exception {
+        if (user == null) {
+            throw new Exception("User data cannot be null");
+        }
+     
+        if (userRepo.findByEmail(user.getEmail()) != null) {
+            throw new Exception("User with this email already exists");
+        }
         userRepo.save(user);
     }
-
+    
     // READ
     @Override
-    public User getUserById(int id) {
-        return userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public User getUserById(int id) throws Exception {
+        if (id <= 0) {
+            throw new Exception("Id should be positive");
+        }
+        
+        if (!userRepo.existsById(id)) {
+            throw new Exception("User not found with id: " + id);
+        }
+        
+        return userRepo.findById(id).get();
     }
 
     @Override
@@ -43,19 +57,27 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String email) throws Exception {
         User user = userRepo.findByEmail(email);
+        
         if (user == null) {
-            throw new RuntimeException("User not found with email: " + email);
+            throw new Exception("User not found with email: " + email);
         }
+        
         return user;
     }
 
-    // UPDATE
     @Override
-    public void updateUser(int id, String name, String surname, String email, String password) {
-        User existingUser = userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    public void updateUser(int id, String name, String surname, String email, String password) throws Exception {
+        
+      
+        if (!userRepo.existsById(id)) {
+            throw new Exception("User not found with id: " + id);
+        }
+
+
+        User existingUser = userRepo.findById(id).get();
+
 
         existingUser.setName(name);
         existingUser.setSurname(surname);
@@ -73,4 +95,6 @@ public class UserServiceImpl implements IUserService {
         }
         userRepo.deleteById(id);
     }
+
+	
 }
