@@ -1,15 +1,22 @@
-<html xmlns:th="http://www.thymeleaf.org">
 
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<p th:text="${box.idRA}" >  </p>
-<p th:text="${box.startDate}" >  </p>
-<p th:text="${box.endDate}" >  </p>
-<p th:text="${box.totalPrice}" >  </p>
-<p th:text="${box.status}" >  </p>
-<p th:text="${box.user}" >  </p>
-<p th:text="${box.room}" >  </p>
+<h1>Reservation Details:</h1>
+
+<p th:text="'Reservation ID: ' + ${box.idRA}"> </p>
+<p th:text="'Start Date: ' + ${box.startDate}"> </p>
+<p th:text="'End Date: ' + ${box.endDate}"> </p>
+<p th:text="'Total Price: ' + ${box.totalPrice} + '€'"> </p>
+<p th:text="'Status: ' + ${box.status}"> </p>
+
+<p th:text="'Customer: ' + ${box.user.name} + ' ' + ${box.user.surname} + ' (' + ${box.user.email} + ')'"> </p>
+
+<p th:text="'Room Number: ' + ${box.room.roomNumber} + ' (Capacity: ' + ${box.room.capacity} + ')'"> </p>
+
+<br/>
+<a th:href="@{/reservation/crud/update/{id}(id=${box.idRA})}">Update</a> |
+<a th:href="@{/reservation/crud/all}">Back to All Reservations</a>
 
 </body>
-
 </html>
