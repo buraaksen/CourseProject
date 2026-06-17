@@ -48,7 +48,7 @@ public class RoomCRUDController {
 
             model.addAttribute("box", room);
 
-            return "room-page";
+            return "all-rooms-page";
 
         } catch (Exception e) {
             model.addAttribute("box", e.getMessage());
