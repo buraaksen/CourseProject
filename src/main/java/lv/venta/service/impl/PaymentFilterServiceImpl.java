@@ -32,7 +32,7 @@ public class PaymentFilterServiceImpl implements IPaymentFilterService {
 	
 	@Override
 	public ArrayList<Payment> filterBySuccessStatus(boolean isSuccessful) throws Exception {
-		ArrayList<Payment> result = paymentRepo.findBySuccessfull(isSuccessful);
+		ArrayList<Payment> result = paymentRepo.findByIsSuccessfull(isSuccessful);
 
 		if (result.isEmpty()) {
 			throw new Exception("There are no payments with success status " + isSuccessful);
