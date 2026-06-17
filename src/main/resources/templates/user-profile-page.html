@@ -1,12 +1,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
+<h1>Please update user data:</h1>
 
-<p th:text="${box.id}" >  </p>
-<p th:text="${box.name}" >  </p>
-<p th:text="${box.surname}" >  </p>
-<p th:text="${box.email}" >  </p>
-<p th:text="${box.role}" >  </p>
+<form method="post" th:object="${user}" th:action="@{/user/update/__${user.id}__}">
+
+<table>
+<tr>
+<td> Name </td>
+<td> <input type="text" th:field="*{name}"  />      </td>
+<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"  > </td>
+</tr>
+
+<tr>
+<td> Surname </td>
+<td> <input type="text" th:field="*{surname}"  />      </td>
+<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"  > </td>
+</tr>
+
+<tr>
+<td> Email </td>
+<td> <input type="text" th:field="*{email}"  />      </td>
+<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"  > </td>
+</tr>
+
+<tr>
+<td> Password </td>
+<td> <input type="password" th:field="*{password}"  />      </td>
+<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  > </td>
+</tr>
+
+<tr>
+<td> Role </td>
+<td> 
+    <select th:field="*{role}">
+        <option value="client">client</option>
+        <option value="landLord">landLord</option>
+        <option value="other">other</option>
+    </select>      
+</td>
+<td th:if="${#fields.hasErrors('role')}" th:errors="*{role}"  > </td>
+</tr>
+
+</table>
+
+<input type="submit" />
+
+</form>
 
 </body>
 

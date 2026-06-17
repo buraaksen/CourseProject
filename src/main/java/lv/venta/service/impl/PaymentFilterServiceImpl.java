@@ -21,7 +21,7 @@ public class PaymentFilterServiceImpl implements IPaymentFilterService {
 		if (reservationId <= 0) {
 			throw new Exception("Wrong input param: Reservation ID must be positive");
 		}
-		ArrayList<Payment> result = paymentRepo.findByReservation_IdRES(reservationId);
+		ArrayList<Payment> result = paymentRepo.findByReservation_IdRA(reservationId);
 
 		if (result.isEmpty()) {
 			throw new Exception("There are no payments for reservation ID " + reservationId);

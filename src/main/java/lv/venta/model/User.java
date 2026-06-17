@@ -39,14 +39,14 @@ public class User {
 	@Email
 	@NotNull(message = "Email can not be null")
 	@NotEmpty(message = "Email must not be Empty")
-	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,}$",
-			message ="Invalide email")
+	//@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$",
+		//	message ="Invalide email")
 	private String email;
 	
 	@Column(name = "Password")
 	@NotNull(message = "Password can not be null")
 	@NotEmpty(message = "Password must not be Empty")
-	@Pattern(regexp = "[0-9]{4}[0-9]{4}", message = "Type 8-20 numbers")
+	@Pattern(regexp = "[0-9]{8}", message = "Type 8-20 numbers")
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
