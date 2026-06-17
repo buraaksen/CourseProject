@@ -1,0 +1,27 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Update Payment</h1>
+
+<p th:text="'Payment ID: ' + ${box.idPay}"></p>
+<p th:text="'Amount: ' + ${box.amount} + '€'"></p>
+<p th:text="'Method: ' + ${box.paymentMethod}"></p>
+
+<form method="post" th:action="@{/payment/crud/update/{id}(id=${box.idPay})}">
+    <table>
+        <tr>
+            <td>Successful</td>
+            <td>
+                <select name="successful">
+                    <option value="true" th:selected="${box.successful == true}">Yes</option>
+                    <option value="false" th:selected="${box.successful == false}">No</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Update" />
+</form>
+
+<br/><a th:href="@{/payment/filter/status/true}">Back</a>
+</body>
+</html>

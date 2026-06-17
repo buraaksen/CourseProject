@@ -15,7 +15,7 @@ public class PropertyFilteringController {
     @Autowired
     private IPropertyFiltering propertyFiltering;
 
-    // localhost:8080/property/filter/type/HOTEL
+    // localhost:8080/property/filter/type/Hotel
     @GetMapping("/type/{type}")
     public String getPropertiesByType(
             @PathVariable("type") Type type,

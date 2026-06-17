@@ -1,19 +1,16 @@
+
 package lv.venta.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import jakarta.validation.Valid;
 import lv.venta.model.Reservation;
 import lv.venta.model.ReservationStatus;
 import lv.venta.service.IReservationCRUDService;
@@ -22,111 +19,126 @@ import lv.venta.service.IReservationCRUDService;
 @RequestMapping("/reservation/crud")
 public class ReservationCRUDController {
 
-	@Autowired
-	private IReservationCRUDService reservationService;
+    @Autowired
+    private IReservationCRUDService reservationService;
 
-	@GetMapping("/all") // localhost:8080/reservation/crud/all
-	public String getControllerToGetAllReservations(Model model) {
-		try {
-			ArrayList<Reservation> reservationsFromDB = reservationService.retrieveAllReservations();
-			model.addAttribute("box", reservationsFromDB);
-			return "all-reservations-page";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
+    // localhost:8080/reservation/crud/all
+    @GetMapping("/all")
+    public String getAll(Model model) {
+        try {
+            ArrayList<Reservation> list = reservationService.retrieveAllReservations();
+            model.addAttribute("box", list);
+            model.addAttribute("statuses", ReservationStatus.values());
+            return "all-reservations-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 
-	@GetMapping("/all/{id}") // localhost:8080/reservation/crud/all/2
-	public String getControllerToGetOneReservationById(@PathVariable(name = "id") int id, Model model) {
-		try {
-			Reservation reservationFromDB = reservationService.retrieveReservationById(id);
-			model.addAttribute("box", reservationFromDB);
-			return "reservation-page";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
+    // localhost:8080/reservation/crud/all/2
+    @GetMapping("/all/{id}")
+    public String getOneById(@PathVariable int id, Model model) {
+        try {
+            model.addAttribute("box", reservationService.retrieveReservationById(id));
+            return "reservation-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
+    
+    @GetMapping("/one")
+    public String getOneByParam(@RequestParam int id, Model model) {
+        try {
+            model.addAttribute("box", reservationService.retrieveReservationById(id));
+            return "reservation-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 
-	@GetMapping("/one") // localhost:8080/reservation/crud/one?id=2
-	public String getControllerToGetOneReservationById2(@RequestParam(name = "id") int id, Model model) {
-		try {
-			Reservation reservationFromDB = reservationService.retrieveReservationById(id);
-			model.addAttribute("box", reservationFromDB);
-			return "reservation-page";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
+    // localhost:8080/reservation/crud/add  (GET)
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+     
+        model.addAttribute("reservation", new Reservation());
+        return "add-reservation-page";
+    }
 
-	@GetMapping("/delete/{id}") // localhost:8080/reservation/crud/delete/2
-	public String getControllerForDeleteReservationById(@PathVariable(name = "id") int id, Model model) {
-		try {
-			reservationService.deleteReservationById(id);
 
-			ArrayList<Reservation> reservationsFromDB = reservationService.retrieveAllReservations();
-			model.addAttribute("box", reservationsFromDB);
-			return "all-reservations-page";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
+    @PostMapping("/add")
+    public String submitAdd(
+            @RequestParam int userId,
+            @RequestParam int roomId,
+            @RequestParam String startDate,
+            @RequestParam String endDate,
+            Model model) {
+        try {
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+            reservationService.createReservation(userId, roomId, start, end);
+            ArrayList<Reservation> list = reservationService.retrieveAllReservations();
+            model.addAttribute("box", list);
+            model.addAttribute("statuses", ReservationStatus.values());
+            return "all-reservations-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 
-	@GetMapping("/add") // localhost:8080/reservation/crud/add
-	public String getControllerForReservationAdd(Model model) {
-		model.addAttribute("reservation", new Reservation()); // empty reservation is passed
-		return "add-reservation-page";
-	}
+    // localhost:8080/reservation/crud/update/2  (GET)
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable int id, Model model) {
+        try {
+            model.addAttribute("box", reservationService.retrieveReservationById(id));
+            model.addAttribute("statuses", ReservationStatus.values());
+            return "update-reservation-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 
-	@PostMapping("/add")
-	public String postControllerForReservationAdd(@Valid Reservation reservation,
-			BindingResult problems, Model model,
-			@RequestParam(name = "userId") int userId,
-			@RequestParam(name = "roomId") int roomId) {
+    // localhost:8080/reservation/crud/update/2  (POST)
+    @PostMapping("/update/{id}")
+    public String submitUpdate(
+            @PathVariable int id,
+            @RequestParam String startDate,
+            @RequestParam String endDate,
+            @RequestParam String status,
+            Model model) {
+        try {
+        	LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
+            ReservationStatus rs = ReservationStatus.valueOf(status);
+            reservationService.updateReservationById(id, start, end, rs);
 
-		if (problems.hasErrors()) {
-			return "add-reservation-page";
-		} else {
-			try {
-				reservationService.createReservation(userId, roomId,
-						reservation.getStartDate(), reservation.getEndDate());
+            ArrayList<Reservation> list = reservationService.retrieveAllReservations();
+            model.addAttribute("box", list);
+            model.addAttribute("statuses", ReservationStatus.values());
+            return "all-reservations-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 
-				return "redirect:/reservation/crud/all";
-			} catch (Exception e) {
-				model.addAttribute("box", e.getMessage());
-				return "error-page";
-			}
-		}
-	}
+    // localhost:8080/reservation/crud/delete/2
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable int id, Model model) {
+        try {
+            reservationService.deleteReservationById(id);
 
-	@GetMapping("/update/{id}") // localhost:8080/reservation/crud/update/2
-	public String getControllerForReservationUpdateById(@PathVariable(name = "id") int id, Model model) {
-		try {
-			Reservation reservationFromDB = reservationService.retrieveReservationById(id);
-			model.addAttribute("reservation", reservationFromDB);
-			return "update-reservation-page";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
-
-	@PostMapping("/update/{id}") // localhost:8080/reservation/crud/update/2
-	public String postControllerForReservationUpdateById(@PathVariable(name = "id") int id,
-			Model model, Reservation reservation,
-			@RequestParam(name = "status") ReservationStatus status) {
-		try {
-			reservationService.updateReservationById(id,
-					reservation.getStartDate(), reservation.getEndDate(), status);
-
-			return "redirect:/reservation/crud/all";
-		} catch (Exception e) {
-			model.addAttribute("box", e.getMessage());
-			return "error-page";
-		}
-	}
-
+            ArrayList<Reservation> list = reservationService.retrieveAllReservations();
+            model.addAttribute("box", list);
+            model.addAttribute("statuses", ReservationStatus.values());
+            return "all-reservations-page";
+        } catch (Exception e) {
+            model.addAttribute("box", e.getMessage());
+            return "error-page";
+        }
+    }
 }

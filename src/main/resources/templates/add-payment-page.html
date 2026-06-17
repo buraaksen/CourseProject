@@ -1,0 +1,39 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Add New Payment</h1>
+
+<form method="post" th:action="@{/payment/crud/add}">
+<table>
+    <tr>
+        <td>Amount (€)</td>
+        <td><input type="number" name="amount" step="0.01" min="1" required /></td>
+    </tr>
+    <tr>
+        <td>Payment Method</td>
+        <td>
+            <select name="paymentMethod">
+                <option th:each="m : ${methods}" th:value="${m}" th:text="${m}"></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Successful</td>
+        <td>
+            <select name="successful">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Reservation ID</td>
+        <td><input type="number" name="reservationId" required /></td>
+    </tr>
+</table>
+<input type="submit" value="Add Payment" />
+</form>
+
+<br/><a th:href="@{/reservation/crud/all}">Back</a>
+</body>
+</html>

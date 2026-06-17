@@ -16,24 +16,7 @@ public class RoomCRUDService implements IRoomCRUDService {
 	@Autowired
 	private IRoomRepo roomRepo;
 
-	@Override
-	public void create(Property PrId, String room_number, int capacity, float pricePerNight) throws Exception {
-		if (PrId == null 
-				|| room_number == null 
-				|| room_number.isEmpty() 
-				|| capacity <= 0 
-				|| pricePerNight <= 0) {
-			throw new Exception("Input data is incorrect");
-		}
-		
-		if (roomRepo.existsByRoomNumberAndCapacityAndPricePerNight(room_number, capacity,
-				pricePerNight)) {
-			throw new Exception("This room already exists in the DB");
-		}
-	Room room = new Room(PrId, room_number, capacity, pricePerNight);
-	roomRepo.save(room);
-	}
-
+	
 	@Override
 	public ArrayList<Room> retrieveAllRooms() throws Exception {
 		if (roomRepo.count() == 0) {
@@ -68,7 +51,7 @@ public class RoomCRUDService implements IRoomCRUDService {
 		}
 		
 		Room room = roomRepo.findById(id).get();
-		room.setRoom_number(room_number);
+		room.setRoomNumber(room_number);
 		room.setCapacity(capacity);
 		room.setPricePerNight(pricePerNight);
 		roomRepo.save(room);
@@ -79,4 +62,23 @@ public class RoomCRUDService implements IRoomCRUDService {
 	public void deleteRoomById(int id) throws Exception {
 		Room roomFromDB = retrieveRoomById(id);
 		roomRepo.delete(roomFromDB);
+	}
+
+	@Override
+	public void create(Property PrId, String room_number, int capacity, float pricePerNight) throws Exception {
+		if (PrId == null 
+				|| room_number == null 
+				|| room_number.isEmpty() 
+				|| capacity <= 0 
+				|| pricePerNight <= 0) {
+			throw new Exception("Input data is incorrect");
+		}
+		
+		if (roomRepo.existsByRoomNumberAndPrId(room_number, PrId)) {
+			throw new Exception("Room with number " + room_number + " already exists in this property!");
+		}
+		
+		Room newRoom = new Room(PrId, room_number, capacity, pricePerNight);
+		roomRepo.save(newRoom);
+		
 	}}

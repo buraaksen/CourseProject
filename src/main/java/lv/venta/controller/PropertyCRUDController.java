@@ -47,7 +47,7 @@ public class PropertyCRUDController {
                     propertyService.retrievePropertyById(id);
 
             model.addAttribute("box", property);
-            return "property-page";
+            return "all-properties-page";
 
         } catch (Exception e) {
             model.addAttribute("box", e.getMessage());
@@ -102,7 +102,7 @@ public class PropertyCRUDController {
                     property.getLocation(),
                     property.getType(),
                     property.getDescription(),
-                    property.isAvailable());
+                    property.getIsAvailable());
 
             return "redirect:/property/crud/all";
 
@@ -152,7 +152,7 @@ public class PropertyCRUDController {
                     property.getLocation(),
                     property.getType(),
                     property.getDescription(),
-                    property.isAvailable());
+                    property.getIsAvailable());
 
             return "redirect:/property/crud/all";
 

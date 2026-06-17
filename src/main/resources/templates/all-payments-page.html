@@ -1,0 +1,29 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>All Payments</h1>
+
+<table border="1">
+<tr>
+    <td>ID</td>
+    <td>AMOUNT</td>
+    <td>METHOD</td>
+    <td>SUCCESSFUL</td>
+    <td>RESERVATION ID</td>
+    <td>UPDATE</td>
+    <td>DELETE</td>
+</tr>
+<tr th:each="p : ${box}">
+    <td th:text="${p.idPay}"></td>
+    <td th:text="${p.amount}"></td>
+    <td th:text="${p.paymentMethod}"></td>
+    <td th:text="${p.successful}"></td>
+    <td th:text="${p.reservation != null ? p.reservation.idRA : '-'}"></td>
+    <td><a th:href="@{/payment/crud/update/{id}(id=${p.idPay})}">Update</a></td>
+    <td><a th:href="@{/payment/crud/delete/{id}(id=${p.idPay})}">Delete</a></td>
+</tr>
+</table>
+
+<br/><a th:href="@{/payment/crud/add}">Add New Payment</a>
+</body>
+</html>

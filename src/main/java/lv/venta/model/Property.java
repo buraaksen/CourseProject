@@ -6,6 +6,7 @@ import java.util.Collection;
 import jakarta.persistence.Column;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ import jakarta.validation.constraints.Pattern;
 
 
 @Entity
-@Table(name = "Property")
+@Table(name = "PropertyTable")
 public class Property {
 	
 	
@@ -28,7 +29,7 @@ public class Property {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "PrId")
-	private int PrId;
+	private int prId;
 	
 	@NotNull
 	@NotEmpty
@@ -54,23 +55,19 @@ public class Property {
 	@Column(name = "IsAvailable")
 	private boolean isAvailable;
 	
-	@Enumerated
-	@Column(name = "Type")
+	@Enumerated(EnumType.STRING)
 	private Type type;
-	
 
-	@OneToMany
-	@JoinColumn(name = "idRoom")
+	@OneToMany(mappedBy = "prId")
 	private Collection<Room> rooms;
-	
 	
 	//setter and getter
 	public int getPrId() {
-		return PrId;
+		return prId;
 	}
 
 	public void setPrId(int prId) {
-		PrId = prId;
+		this.prId = prId;
 	}
 	public String getName() {
 		return name;	
@@ -90,7 +87,7 @@ public class Property {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isAvailable() {
+	public boolean getIsAvailable() {
 		return isAvailable;
 	}
 	public void setIsAvailable(boolean isAvailable) {
