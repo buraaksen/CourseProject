@@ -1,76 +1,129 @@
 package lv.venta.service.impl;
 
+import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import lv.venta.model.User;
 import lv.venta.model.Status;
 import lv.venta.repo.IUserRepo;
-import lv.venta.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import lv.venta.service.IUserCRUDService;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserCRUDService {
 
-    @Autowired
-    private IUserRepo userRepo;
+	@Autowired
+	private IUserRepo userRepo;
 
-    // CREATE
-    @Override
-    public void registerUser(User user) {
-        userRepo.save(user);
-    }
+	@Override
+	public void createUser(String name, String surname, String email, String password, Status status)
+			throws Exception {
+		if(name == null
+				|| name.isEmpty()
+				|| !name.matches("[A-Z]{1}[a-zA-Z ]{2,40}")
+				|| surname == null
+				|| surname.isEmpty()
+				|| !surname.matches("[A-Z]{1}[a-zA-Z ]{2,40}")
+				|| email == null
+				|| email.isEmpty()
+				|| password == null
+				|| password.isEmpty()
+				|| status == null) {
+				throw new Exception("Input data is incorrect");
+			}
 
-    // READ
-    @Override
-    public User getUserById(int id) {
-        return userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-    }
+			if(userRepo.existsByEmail(email)) {
+				throw new Exception("This user already exists in the DB");
+			}
 
-    @Override
-    public ArrayList<User> getAllUsers() {
-        ArrayList<User> list = new ArrayList<>();
-        userRepo.findAll().forEach(list::add);
-        return list;
-    }
+			User user = new User(name, surname, email, password, status);
+			userRepo.save(user);
+		}
 
-    @Override
-    public ArrayList<User> getUsersByRole(Status role) {
-        ArrayList<User> list = new ArrayList<>();
-        userRepo.findByRole(role).forEach(list::add);
-        return list;
-    }
+	@Override
+	public ArrayList<User> retrieveAllUsers() throws Exception {
+		if(userRepo.count() == 0) {
+			throw new Exception("There are no users in DB");
+		}
+		else {
+			ArrayList<User> users = new ArrayList<>();
+			for (User user : userRepo.findAll()) {
+				users.add(user);
+			}
+			return users;
+		}
+	}
 
-    @Override
-    public User getUserByEmail(String email) {
-        User user = userRepo.findByEmail(email);
-        if (user == null) {
-            throw new RuntimeException("User not found with email: " + email);
-        }
-        return user;
-    }
+	@Override
+	public User retrieveUserById(int id) throws Exception {
+		if(id <= 0) {
+			throw new Exception("Id should be positive");
+		}
 
-    // UPDATE
-    @Override
-    public void updateUser(int id, String name, String surname, String email, String password) {
-        User existingUser = userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+		if(!userRepo.existsById(id)) {
+			throw new Exception("User with id " + id + " doesn't exist");
+		}
 
-        existingUser.setName(name);
-        existingUser.setSurname(surname);
-        existingUser.setEmail(email);
-        existingUser.setPassword(password);
+		return userRepo.findById(id).get();
+	}
 
-        userRepo.save(existingUser);
-    }
+	@Override
+	public User retrieveUserByEmail(String email) throws Exception {
+		if(email == null || email.isEmpty()) {
+			throw new Exception("Email should not be empty");
+		}
 
-    // DELETE
-    @Override
-    public void deleteUser(int id) {
-        if (!userRepo.existsById(id)) {
-            throw new RuntimeException("User not found with id: " + id);
-        }
-        userRepo.deleteById(id);
-    }
-}
+		if(!userRepo.existsByEmail(email)) {
+			throw new Exception("User with email " + email + " doesn't exist");
+		}
+
+		return userRepo.findByEmail(email);
+	}
+
+	@Override
+	public ArrayList<User> retrieveUsersByStatus(Status status) throws Exception {
+		if(status == null) {
+			throw new Exception("Status should not be null");
+		}
+
+		ArrayList<User> usersFromDB = new ArrayList<>(userRepo.findByRole(status));
+
+		if(usersFromDB.isEmpty()) {
+			throw new Exception("There are no users with status " + status);
+		}
+
+		return usersFromDB;
+	}
+
+	@Override
+	public void updateUserById(int id, String name, String surname, String email, String password, Status status)
+			throws Exception {
+				if(name == null
+						|| name.isEmpty()
+						|| !name.matches("[A-Z]{1}[a-zA-Z ]{2,40}")
+						|| surname == null
+						|| surname.isEmpty()
+						|| !surname.matches("[A-Z]{1}[a-zA-Z ]{2,40}")
+						|| email == null
+						|| email.isEmpty()
+						|| password == null
+						|| password.isEmpty()
+						|| status == null) {
+						throw new Exception("Input data is incorrect");
+					}
+				User userFromDB = retrieveUserById(id);
+
+				userFromDB.setName(name);
+				userFromDB.setSurname(surname);
+				userFromDB.setEmail(email);
+				userFromDB.setPassword(password);
+				userFromDB.setRole(status);
+				userRepo.save(userFromDB);
+			}
+
+	@Override
+	public void deleteUserById(int id) throws Exception {
+			User userFromDB = retrieveUserById(id);
+			userRepo.delete(userFromDB);
+		}
+
+	}
