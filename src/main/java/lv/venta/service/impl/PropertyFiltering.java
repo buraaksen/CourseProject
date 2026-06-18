@@ -53,12 +53,19 @@ public ArrayList<Property> filterByLocation(String location) throws Exception {
 public ArrayList<Property> filterByAvailability(boolean isAvailable) throws Exception {
 	ArrayList<Property> result = propertyRepo.findByIsAvailable(isAvailable);
 
-	if(result.isEmpty()) {
-		String status = isAvailable ? "available" : "unavailable";
-		throw new Exception("There are no " + status + " properties at the moment");
+	if (result.isEmpty()) {
+
+	    String status;
+
+	    if (isAvailable) {
+	        status = "available";
+	    } else {
+	        status = "unavailable";
+	    }
+
+	    throw new Exception("There are no " + status + " properties at the moment");
 	}
-	else {
-		return result;
-	}
+
+	return result;
 }
 }
